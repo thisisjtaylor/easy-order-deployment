@@ -16,7 +16,7 @@ pipeline {
         stage('Checkout Backend') {
             steps {
                 dir('easy-order-backend') {
-                    git branch: 'main',
+                    git branch: 'master',
                         url: 'https://github.com/thisisjtaylor/easy-order-backend.git'
                 }
             }
