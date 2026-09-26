@@ -2,7 +2,23 @@ pipeline {
     agent any
 
     stages {
+stage('Test Backend') {
+    steps {
+        dir('easy-order-backend') {
+            sh 'chmod +x mvnw'
+            sh './mvnw test'
+        }
+    }
+}
 
+stage('Build Frontend') {
+    steps {
+        dir('easy-order-frontend') {
+            sh 'npm ci'
+            sh 'npm run build'
+        }
+    }
+}
         stage('Environment Check') {
             steps {
                 echo 'Easy Order CI/CD Pipeline Started!'
