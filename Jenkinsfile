@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+	
+	environment {
+		BACKEND_CONTEXT = './easy-order-backend'
+		FRONTEND_CONTEXT = './easy-order-frontend'
+	}
+	
     stages {
 
         stage('Environment Check') {
