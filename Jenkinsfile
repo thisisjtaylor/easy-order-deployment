@@ -4,6 +4,19 @@ pipeline {
 	environment {
 		BACKEND_CONTEXT = './easy-order-backend'
 		FRONTEND_CONTEXT = './easy-order-frontend'
+	
+		MYSQL_DATABASE = 'easyorder'
+		MYSQL_USER = 'easyorder'
+	
+		MYSQL_PASSWORD = credentials('easy-order-db-password')
+		DB_PASSWORD = credentials('easy-order-db-password')
+	
+		MYSQL_ROOT_PASSWORD = credentials('easy-order-root-password')
+	
+		DB_URL = 'jdbc:mysql://mysql:3306/easyorder'
+		DB_USERNAME = 'easyorder'
+	
+		CORS_ALLOWED_ORIGINS = 'http://localhost:3000'
 	}
 	
     stages {
@@ -66,19 +79,19 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-                sh 'docker compose build'
+                sh 'docker compose -p easy-order-deployment build'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker compose up -d'
+                sh 'docker compose -p easy-order-deployment up -d'
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                sh 'docker compose ps'
+                sh 'docker compose -p easy-order-deployment ps'
             }
         }
     }
