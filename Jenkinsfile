@@ -70,10 +70,13 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                dir('easy-order-frontend') {
-                    sh 'npm ci'
-                    sh 'npm run build'
-                }
+				dir('easy-order-frontend') {
+							withEnv([
+								'VITE_ORDER_API_URL=http://localhost:8082/order-service'
+							]) {
+								sh 'npm ci'
+								sh 'npm run build'
+							}
             }
         }
 
