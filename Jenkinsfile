@@ -68,17 +68,18 @@ pipeline {
             }
         }
 
-        stage('Build Frontend') {
-            steps {
+		stage('Build Frontend') {
+			steps {
 				dir('easy-order-frontend') {
-							withEnv([
-								'VITE_ORDER_API_URL=http://localhost:8082/order-service'
-							]) {
-								sh 'npm ci'
-								sh 'npm run build'
-							}
-            }
-        }
+					withEnv([
+						'VITE_ORDER_API_URL=http://localhost:8082/order-service'
+					]) {
+						sh 'npm ci'
+						sh 'npm run build'
+					}
+				}
+			}
+		}
 
         stage('Build Docker Images') {
             steps {
